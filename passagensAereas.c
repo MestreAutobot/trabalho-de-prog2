@@ -21,7 +21,7 @@ void menuVendas(){
 }
 
 int main (){
-    menuVendas();
+
 
 
     return 0;
