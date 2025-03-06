@@ -2,10 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-typedef struct{
-  
-
-}aeroporto;
 
 void menuVendas(){
     printf("[O]---------------------------------[O]\n");
@@ -20,9 +16,13 @@ void menuVendas(){
     printf(" | Digite uma opcao acima: ");
 }
 
+void precoPassagem(double*preco,double Milhas, double Per, double Duffs, double ret, double proc, double dist){
+    double aux;
+    aux = Milhas*Per*Duffs*ret*proc*dist;
+    *preco= aux; 
+
+}
+
 int main (){
-
-
-
     return 0;
 }
