@@ -299,12 +299,15 @@ void menuVendas(){
         switch(opcao){
             case 1:
                 printf("Você escolheu pagar com Cartão de Crédito.\n");
+                //chamar funcao
                 break;
             case 2:
                 printf("Você escolheu pagar com Cartão de Débito.\n");
+                //chamar funcao
                 break;
             case 3:
                 printf("Você escolheu pagar em Dinheiro.\n");
+                //chamar funcao
                 break;
             case 4:
                 printf("Voltando.\n");
