@@ -297,5 +297,6 @@ int main() {
             default: printf("Opção inválida!\n");
         }
     } while (opcao != 3);
+    printf("Processo finalizado. Obrigado por comprar conosco!\n");
     return 0;
 }
