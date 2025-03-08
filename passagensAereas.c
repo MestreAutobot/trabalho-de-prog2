@@ -284,6 +284,8 @@ void alterarFuncionario() {
         printf("Funcionário não encontrado!\n");
 }
 
+void menuVendas(){
+    
 
 
 int main() {
