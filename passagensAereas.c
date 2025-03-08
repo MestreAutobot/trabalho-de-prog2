@@ -286,6 +286,7 @@ void alterarFuncionario() {
 
 void menuVendas(){
     int opcao;
+    char cpf[15];
     
     do{
         printf("\nForma de pagamento\n");
@@ -298,15 +299,15 @@ void menuVendas(){
     
         switch(opcao){
             case 1:
-                printf("Você escolheu pagar com Cartão de Crédito.\n");
+                printf("Você escolheu pagar com Cartão de Crédito.\n", buscarInformacao());
                 //printf("Total: %d\n", precoPassagem);
                 break;
             case 2:
-                printf("Você escolheu pagar com Cartão de Débito.\n");
+                printf("Você escolheu pagar com Cartão de Débito.\n", buscarInformacao());
                 //printf("Total: %d\n", precoPassagem);
                 break;
             case 3:
-                printf("Você escolheu pagar em Dinheiro.\n");
+                printf("Você escolheu pagar em Dinheiro.\n", buscarInformacao());
                 //printf("Total: %d\n", precoPassagem);
                 
                 break;
