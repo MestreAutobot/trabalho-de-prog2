@@ -295,7 +295,7 @@ int main() {
 
         switch (opcao) {
             case 1: menuConfiguracoes(); break;
-            case 2: printf("Módulo de vendas ainda não implementado.\n"); break;
+            case 2: menuVendas(); break;
             case 3: printf("Saindo...\n"); break;
             default: printf("Opção inválida!\n");
         }
