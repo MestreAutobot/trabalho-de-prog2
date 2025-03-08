@@ -285,6 +285,34 @@ void alterarFuncionario() {
 }
 
 void menuVendas(){
+    int opcao;
+    
+    do{
+        printf("\nForma de pagamento\n");
+        printf("[1] Cartão de Crédito\n");
+        printf("[2] Cartão de Débito\n");
+        printf("[3] Dinheiro\n");
+        printf("[4] Voltar\n");
+        printf("Escolha uma opção: \n");
+        scanf("%d", &opcao);
+    
+        switch(opcao){
+            case 1:
+                printf("Você escolheu pagar com Cartão de Crédito.\n");
+                break;
+            case 2:
+                printf("Você escolheu pagar com Cartão de Débito.\n");
+                break;
+            case 3:
+                printf("Você escolheu pagar em Dinheiro.\n");
+                break;
+            case 4:
+                printf("Voltando.\n");
+                break;
+            default: printf("Opção inválida!\n");
+        }
+    }while(opcao!=5);
+}
     
 
 
