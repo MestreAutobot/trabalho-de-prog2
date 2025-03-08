@@ -18,6 +18,7 @@ typedef struct rota {
     int horarioMinutos;
     int poltronasDisponiveis;
     float distanciaMilhas;
+    char assentosDisponiveis[MAX_POLTRONAS]; //novo
 } Rota;
 
 typedef struct cliente {
@@ -140,6 +141,10 @@ void cadastrarRota() {
     scanf("%d", &rota.poltronasDisponiveis);
     printf("Distância em milhas: ");
     scanf("%f", &rota.distanciaMilhas);
+
+    for(int i=0; i<MAX_POLTRONAS; i++){ //novo
+        rota.assentos[i] = 'O';
+    }
 
     fwrite(&rota, sizeof(Rota), 1, file);
     fclose(file);
