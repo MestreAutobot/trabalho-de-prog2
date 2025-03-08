@@ -299,22 +299,23 @@ void menuVendas(){
         switch(opcao){
             case 1:
                 printf("Você escolheu pagar com Cartão de Crédito.\n");
-                //chamar funcao
+                //printf("Total: %d\n", precoPassagem);
                 break;
             case 2:
                 printf("Você escolheu pagar com Cartão de Débito.\n");
-                //chamar funcao
+                //printf("Total: %d\n", precoPassagem);
                 break;
             case 3:
                 printf("Você escolheu pagar em Dinheiro.\n");
-                //chamar funcao
+                //printf("Total: %d\n", precoPassagem);
+                
                 break;
             case 4:
                 printf("Voltando.\n");
                 break;
             default: printf("Opção inválida!\n");
         }
-    }while(opcao!=5);
+    }while(opcao!=4);
 }
     
 
