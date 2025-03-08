@@ -45,10 +45,11 @@ void cadastrarPassageiro();
 void alterarDadosPassageiro();
 void cadastrarFuncionario();
 void alterarFuncionario();
+void menuOpcoes();
 void menuConfiguracoes();
 void menuVendas();
 
-void menuVendas(){
+void menuOpcoes(){ //mudei o nome de "menuVendas" para "menuOpcoes", assim fica "menuOpcoes > menuConfiguracoes e menuVendas", espero que esteja tudo bem
     printf("[O]---------------------------------[O]\n");
     printf(" |  Bem vindo ao site linhas aereas  |\n");
     printf("[O]---------------------------------[O]\n");
