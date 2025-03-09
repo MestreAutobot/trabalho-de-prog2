@@ -286,7 +286,6 @@ void alterarFuncionario() {
 
 void menuVendas(){
     int opcao;
-    char cpf[15];
     
     do{
         printf("\nForma de pagamento\n");
@@ -299,17 +298,17 @@ void menuVendas(){
     
         switch(opcao){
             case 1:
-                printf("Você escolheu pagar com Cartão de Crédito.\n", buscarInformacao());
-                //printf("Total: %d\n", precoPassagem);
+                printf("Você escolheu pagar com Cartão de Crédito.\n");
+                buscarCliente();
+                printf(funcaoPreco()); /////////////////
                 break;
             case 2:
-                printf("Você escolheu pagar com Cartão de Débito.\n", buscarInformacao());
-                //printf("Total: %d\n", precoPassagem);
+                printf("Você escolheu pagar com Cartão de Débito.\n");
+                buscarCliente();
                 break;
             case 3:
-                printf("Você escolheu pagar em Dinheiro.\n", buscarInformacao());
-                //printf("Total: %d\n", precoPassagem);
-                
+                printf("Você escolheu pagar em Dinheiro.\n");
+                buscarCliente();
                 break;
             case 4:
                 printf("Voltando.\n");
@@ -318,6 +317,40 @@ void menuVendas(){
         }
     }while(opcao!=4);
 }
+
+void buscarCliente(){
+    char resposta = 'n';
+    char cpf[15];
+    int encontrado = 0;
+    
+    printf("Cadastro:\n");
+    printf("Possui status de Cliente Fiel? (s/n)\n");
+    scanf("%s", resposta);
+    
+    switch(resposta){
+        case 's':
+            printf("Por favor, insira seu CPF:\n");
+            scanf("%s", cpf);
+        
+            for(int i=0; i< ;i++){
+                if(strcmp(cpf, aaa[i].cpf)==0): //
+                    printf("Cliente já cadastrado. Cliente: \n");
+                    encontrado = 1;
+                    break;
+                    
+            }
+            if(encontrado==0):
+                printf("Cliente não cadastrado. Por favor, realize o cadastro:\n");
+                cadastrarPassageiro();
+                break;
+        case 'n':
+            printf("Por favor, realize o cadastro:\n");
+            cadastrarPassageiro();
+            break;
+    }
+}
+
+
     
 
 
