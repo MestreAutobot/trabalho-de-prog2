@@ -300,7 +300,7 @@ void menuVendas(){
             case 1:
                 printf("Você escolheu pagar com Cartão de Crédito.\n");
                 buscarCliente();
-                printf(funcaoPreco()); /////////////////
+                printf(calcularPreco()); /////////////////
                 break;
             case 2:
                 printf("Você escolheu pagar com Cartão de Débito.\n");
