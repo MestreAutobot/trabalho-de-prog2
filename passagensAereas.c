@@ -65,7 +65,44 @@ void menuOpcoes(){ //mudei o nome de "menuVendas" para "menuOpcoes", assim fica 
 void precoPassagem(double*preco,double Milhas, double Per, double Duffs, double ret, double proc, double dist){
     double aux;
     aux = Milhas*Per*Duffs*ret*proc*dist;
-    *preco= aux; 
+    *preco= aux;
+
+float calcularPreco(Rota *rota, int diasParaViagem, int ehFeriado, int ehFinalSemana, int diasRetorno, int poltronasVagas) {
+    float precoMilha;
+    
+    if (rota->distanciaMilhas <= 500) precoMilha = 0.36;
+    else if (rota->distanciaMilhas <= 800) precoMilha = 0.29;
+    else precoMilha = 0.21;
+
+    float fatorPeriodo;
+    if (diasParaViagem <= 3) fatorPeriodo = 4.52;
+    else if (diasParaViagem <= 6) fatorPeriodo = 3.21;
+    else if (diasParaViagem <= 10) fatorPeriodo = 2.25;
+    else if (diasParaViagem <= 15) fatorPeriodo = 1.98;
+    else if (diasParaViagem <= 20) fatorPeriodo = 1.78;
+    else if (diasParaViagem <= 30) fatorPeriodo = 1.65;
+    else fatorPeriodo = 1.45;
+
+    float fatorDuffs = ehFeriado ? 3.56 : (ehFinalSemana ? 1.21 : 1.00);
+    
+    float fatorRetorno;
+    if (diasRetorno <= 2) fatorRetorno = 1.09;
+    else if (diasRetorno <= 5) fatorRetorno = 1.05;
+    else if (diasRetorno <= 8) fatorRetorno = 1.02;
+    else fatorRetorno = 1.00;
+
+    float fatorProcura;
+    float ocupacao = 100 - ((float)poltronasVagas / rota->poltronasDisponiveis) * 100;
+    if (ocupacao > 90) fatorProcura = 0.75;
+    else if (ocupacao > 70) fatorProcura = 0.85;
+    else if (ocupacao > 60) fatorProcura = 0.95;
+    else if (ocupacao > 40) fatorProcura = 1.00;
+    else if (ocupacao > 20) fatorProcura = 1.15;
+    else if (ocupacao > 10) fatorProcura = 1.20;
+    else fatorProcura = 1.35;
+
+    return rota->distanciaMilhas * precoMilha * fatorPeriodo * fatorDuffs * fatorRetorno * fatorProcura;
+}
 
 }
 
