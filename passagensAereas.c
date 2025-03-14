@@ -380,7 +380,7 @@ void menuVendas(){
             case 1:
                 printf("Você escolheu pagar com Cartão de Crédito.\n");
                 buscarCliente();
-                printf(calcularPreco());
+                printf(calcularPreco(Rota *rota, int diasParaViagem, int ehFeriado, int ehFinalSemana, int diasRetorno, int poltronasVagas));
                 break;
             case 2:
                 printf("Você escolheu pagar com Cartão de Débito.\n");
