@@ -284,40 +284,6 @@ void alterarFuncionario() {
         printf("Funcionário não encontrado!\n");
 }
 
-void menuVendas(){
-    int opcao;
-    
-    do{
-        printf("\nForma de pagamento\n");
-        printf("[1] Cartão de Crédito\n");
-        printf("[2] Cartão de Débito\n");
-        printf("[3] Dinheiro\n");
-        printf("[4] Voltar\n");
-        printf("Escolha uma opção: \n");
-        scanf("%d", &opcao);
-    
-        switch(opcao){
-            case 1:
-                printf("Você escolheu pagar com Cartão de Crédito.\n");
-                buscarCliente();
-                printf(calcularPreco()); /////////////////
-                break;
-            case 2:
-                printf("Você escolheu pagar com Cartão de Débito.\n");
-                buscarCliente();
-                break;
-            case 3:
-                printf("Você escolheu pagar em Dinheiro.\n");
-                buscarCliente();
-                break;
-            case 4:
-                printf("Voltando.\n");
-                break;
-            default: printf("Opção inválida!\n");
-        }
-    }while(opcao!=4);
-}
-
 void buscarCliente(){
     FILE *file = fopen("clientes.dat", "rb");
     if (file == NULL) {
@@ -359,6 +325,40 @@ void buscarCliente(){
             break;
     }
     fclose(file);
+}
+
+void menuVendas(){
+    int opcao;
+    
+    do{
+        printf("\nForma de pagamento\n");
+        printf("[1] Cartão de Crédito\n");
+        printf("[2] Cartão de Débito\n");
+        printf("[3] Dinheiro\n");
+        printf("[4] Voltar\n");
+        printf("Escolha uma opção: \n");
+        scanf("%d", &opcao);
+    
+        switch(opcao){
+            case 1:
+                printf("Você escolheu pagar com Cartão de Crédito.\n");
+                buscarCliente();
+                printf(calcularPreco());
+                break;
+            case 2:
+                printf("Você escolheu pagar com Cartão de Débito.\n");
+                buscarCliente();
+                break;
+            case 3:
+                printf("Você escolheu pagar em Dinheiro.\n");
+                buscarCliente();
+                break;
+            case 4:
+                printf("Voltando.\n");
+                break;
+            default: printf("Opção inválida!\n");
+        }
+    }while(opcao!=4);
 }
 
 
