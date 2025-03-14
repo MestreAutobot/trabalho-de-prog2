@@ -435,6 +435,33 @@ void buscarCliente(){
     fclose(file);
 }
 
+void funcaoDinheiro(){
+    FILE *file = fopen("funcionarios.dat", "rb+"), *temp;
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo de funcionários.\n");
+        return;
+    }
+    int matricula;
+    int encontrado = 0;
+
+    do{
+        printf("Informe o número de matrícula do funcionário: \n");
+        scanf("%d", &matricula);
+        
+        Funcionario funcionario;
+        while(fread(&funcionario, sizeof(Funcionario), 1, file){
+            if(funcionario.matricula==matricula){
+                printf("Por favor, confirme pagamento: ");
+                encontrado = 1;
+                break;
+            }       
+            if(encontrado==0){
+                printf("Funcionário não cadastrado. Por favor, realize o cadastro:\n");
+                cadastrarPassageiro();
+                break;
+            }
+        }while(encontrado==0);
+
 void menuVendas(){
     int opcao;
     
@@ -460,6 +487,7 @@ void menuVendas(){
             case 3:
                 printf("Você escolheu pagar em Dinheiro.\n");
                 buscarCliente();
+                funcaoDinheiro();
                 break;
             case 4:
                 printf("Voltando.\n");
@@ -476,7 +504,7 @@ void gerarETicketTXT(Rota *rota, Cliente *cliente, int dia, int mes, int ano, ch
         return;
     }
 
-    int numeroETicket = rand() % 100000 + 10000; // Número aleatório de 5 dígitos
+    int numeroETicket = rand() % 100000 + 10000;
 
     fprintf(file, "----------------------------------------\n");
     fprintf(file, "E-TICKET: %d\n", numeroETicket);
