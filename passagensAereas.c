@@ -436,31 +436,45 @@ void buscarCliente(){
 }
 
 void funcaoDinheiro(){
-    FILE *file = fopen("funcionarios.dat", "rb+"), *temp;
-    if (file == NULL) {
+    FILE *file = fopen("funcionarios.dat", "rb+");
+    if (file == NULL){
         printf("Erro ao abrir o arquivo de funcionários.\n");
         return;
     }
     int matricula;
     int encontrado = 0;
+    char confirmacao;
 
     do{
         printf("Informe o número de matrícula do funcionário: \n");
         scanf("%d", &matricula);
         
         Funcionario funcionario;
-        while(fread(&funcionario, sizeof(Funcionario), 1, file){
+        rewind(file);
+        
+        while(fread(&funcionario, sizeof(Funcionario), 1, file)==1){
             if(funcionario.matricula==matricula){
-                printf("Por favor, confirme pagamento: ");
                 encontrado = 1;
-                break;
-            }       
-            if(encontrado==0){
-                printf("Funcionário não cadastrado. Por favor, realize o cadastro:\n");
-                cadastrarPassageiro();
+                printf("Confirmar pagamento? (s/n)");
+                scanf("%s", &confirmacao);
+                
+                if (confirmacao == 's' || confirmacao == 'S'){
+                    printf("Pagamento confirmado!\n");
+                }
+                else{
+                    printf("Pagamento não confirmado.\n");
+                }
                 break;
             }
-        }while(encontrado==0);
+        }
+        if(encontrado==0){
+            printf("Funcionário não cadastrado. Por favor, realize o cadastro:\n");
+            cadastrarPassageiro();
+            break;
+        }
+    }while(encontrado==0);
+    fclose(file);
+}
 
 void menuVendas(){
     int opcao;
