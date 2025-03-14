@@ -22,7 +22,7 @@ typedef struct rota {
     int assentosOcupados[100]; // ADIÇÃO
 } Rota;
 
-typedef struct cliente {
+typedef struct cliente{
     int codigo;
     char nome[100];
     char RG[15];
