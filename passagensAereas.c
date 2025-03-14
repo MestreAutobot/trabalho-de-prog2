@@ -319,9 +319,15 @@ void menuVendas(){
 }
 
 void buscarCliente(){
+    FILE *file = fopen("clientes.dat", "rb");
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo de clientes.\n");
+        return;
+    }
     char resposta = 'n';
     char cpf[15];
     int encontrado = 0;
+    Cliente cliente;
     
     printf("Cadastro:\n");
     printf("Possui status de Cliente Fiel? (s/n)\n");
@@ -332,12 +338,12 @@ void buscarCliente(){
             printf("Por favor, insira seu CPF:\n");
             scanf("%s", cpf);
         
-            for(int i=0; i< ;i++){
-                if(strcmp(cpf, aaa[i].cpf)==0): //
-                    printf("Cliente já cadastrado. Cliente: \n");
+            while (fread(&cliente, sizeof(Cliente), 1, file){
+                if(strcmp(cpf, cliente.cpf)==0){
+                    printf("Cliente já cadastrado. Cliente: %s\n", cliente.nome");
                     encontrado = 1;
                     break;
-                    
+                }       
             }
             if(encontrado==0):
                 printf("Cliente não cadastrado. Por favor, realize o cadastro:\n");
@@ -347,7 +353,12 @@ void buscarCliente(){
             printf("Por favor, realize o cadastro:\n");
             cadastrarPassageiro();
             break;
+        
+        default:
+            printf("Resposta Inválida\n");
+            break;
     }
+    fclose(file);
 }
 
 
