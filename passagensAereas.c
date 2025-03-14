@@ -19,6 +19,7 @@ typedef struct rota {
     int horarioMinutos;
     int poltronasDisponiveis;
     float distanciaMilhas;
+    int assentosOcupados[100]; // ADIÇÃO
 } Rota;
 
 typedef struct cliente {
@@ -50,7 +51,7 @@ void menuOpcoes();
 void menuConfiguracoes();
 void menuVendas();
 
-void menuOpcoes(){ //mudei o nome de "menuVendas" para "menuOpcoes", assim fica "menuOpcoes > menuConfiguracoes e menuVendas", espero que esteja tudo bem
+void menuOpcoes(){
     printf("[O]---------------------------------[O]\n");
     printf(" |  Bem vindo ao site linhas aereas  |\n");
     printf("[O]---------------------------------[O]\n");
@@ -81,8 +82,8 @@ int feriados[][2] = {
 };
 
 int ehFeriado(int dia, int mes) {
-    int totalFeriados = sizeof(feriados) / sizeof(feriados[0]);
-    for (int i = 0; i < totalFeriados; i++) {
+    //int totalFeriados = sizeof(feriados) / sizeof(feriados[0]);
+    for (int i = 0; i < (sizeof(feriados) / sizeof(feriados[0])); i++) {//
         if (feriados[i][0] == dia && feriados[i][1] == mes) {
             return 1;
         }
@@ -97,16 +98,17 @@ int ehFinalSemana(int dia, int mes, int ano) {
     tm.tm_year = ano - 1900; 
 
     mktime(&tm);
+    return (tm.tm_wday == 0 || tm.tm_wday == 6); // ADIÇÃO
 
-    if (tm.tm_wday == 0 || tm.tm_wday == 6) {
-        return 1;
-    }
-    return 0;
+    //if (tm.tm_wday == 0 || tm.tm_wday == 6) {
+        //return 1;
+    //}
+    //return 0;
 }
 
 int diasParaViagem(int diaViagem, int mesViagem, int anoViagem) {
     time_t agora;
-    time(&agora)
+    time(&agora);
         
     struct tm tmViagem = {0};
     tmViagem.tm_mday = diaViagem;
@@ -115,9 +117,9 @@ int diasParaViagem(int diaViagem, int mesViagem, int anoViagem) {
 
     time_t tempoViagem = mktime(&tmViagem);
     double diferenca = difftime(tempoViagem, agora);
-    int dias = (int)(diferenca / (60 * 60 * 24));
+    return (int)(diferenca / (60 * 60 * 24));//
 
-    return dias > 0 ? dias : 0;
+    //return dias > 0 ? dias : 0;
 }
 
 int diasRetorno(int diaIda, int mesIda, int anoIda, int diaVolta, int mesVolta, int anoVolta) {
@@ -135,9 +137,9 @@ int diasRetorno(int diaIda, int mesIda, int anoIda, int diaVolta, int mesVolta, 
     time_t tempoVolta = mktime(&tmVolta);
 
     double diferenca = difftime(tempoVolta, tempoIda);
-    int dias = (int)(diferenca / (60 * 60 * 24));
+    return (int)(diferenca / (60 * 60 * 24));
 
-    return dias > 0 ? dias : 0;
+    //return dias > 0 ? dias : 0;
 }
 
 float calcularPreco(Rota *rota, int diasParaViagem, int ehFeriado, int ehFinalSemana, int diasRetorno, int poltronasVagas) {
@@ -405,7 +407,7 @@ void buscarCliente(){
     
     printf("Cadastro:\n");
     printf("Possui status de Cliente Fiel? (s/n)\n");
-    scanf("%s", resposta);
+    scanf(" %c", &resposta);
     
     switch(resposta){
         case 's':
@@ -414,15 +416,16 @@ void buscarCliente(){
         
             while (fread(&cliente, sizeof(Cliente), 1, file){
                 if(strcmp(cpf, cliente.cpf)==0){
-                    printf("Cliente já cadastrado. Cliente: %s\n", cliente.nome");
+                    printf("Cliente já cadastrado. Cliente: %s\n", cliente.nome);
                     encontrado = 1;
                     break;
                 }       
             }
-            if(encontrado==0):
+            if(encontrado==0){
                 printf("Cliente não cadastrado. Por favor, realize o cadastro:\n");
                 cadastrarPassageiro();
                 break;
+            }
         case 'n':
             printf("Por favor, realize o cadastro:\n");
             cadastrarPassageiro();
@@ -456,7 +459,7 @@ void funcaoDinheiro(){
             if(funcionario.matricula==matricula){
                 encontrado = 1;
                 printf("Confirmar pagamento? (s/n)");
-                scanf("%s", &confirmacao);
+                scanf(" %c", &confirmacao);
                 
                 if (confirmacao == 's' || confirmacao == 'S'){
                     printf("Pagamento confirmado!\n");
@@ -541,8 +544,8 @@ void gerarETicketTXT(Rota *rota, Cliente *cliente, int dia, int mes, int ano, ch
 int main() {
     int opcao;
     do {
+        menuOpcoes();
         scanf("%d", &opcao);
-
         switch (opcao) {
             case 1: menuConfiguracoes(); break;
             case 2: menuVendas(); break;
@@ -550,6 +553,7 @@ int main() {
             default: printf("Opção inválida!\n");
         }
     } while (opcao != 3);
+    
     printf("Processo finalizado. Obrigado por comprar conosco!\n");
     return 0;
 }
