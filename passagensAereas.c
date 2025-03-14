@@ -500,6 +500,7 @@ void menuVendas(){
             case 2:
                 printf("Você escolheu pagar com Cartão de Débito.\n");
                 buscarCliente();
+                printf("Preço: %.2f\n", calcularPreco(Rota *rota, int diasParaViagem, int ehFeriado, int ehFinalSemana, int diasRetorno, int poltronasVagas));
                 break;
             case 3:
                 printf("Você escolheu pagar em Dinheiro.\n");
