@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 typedef struct aeroporto {
     char codigo[10];
@@ -66,6 +67,78 @@ void precoPassagem(double*preco,double Milhas, double Per, double Duffs, double 
     double aux;
     aux = Milhas*Per*Duffs*ret*proc*dist;
     *preco= aux;
+}
+
+int feriados[][2] = {
+    {1, 1},   // Ano Novo (01/01)
+    {21, 4},  // Tiradentes (21/04)
+    {1, 5},   // Dia do Trabalho (01/05)
+    {7, 9},   // Independência do Brasil (07/09)
+    {12, 10}, // Nossa Senhora Aparecida (12/10)
+    {2, 11},  // Finados (02/11)
+    {15, 11}, // Proclamação da República (15/11)
+    {25, 12}  // Natal (25/12)
+};
+
+int ehFeriado(int dia, int mes) {
+    int totalFeriados = sizeof(feriados) / sizeof(feriados[0]);
+    for (int i = 0; i < totalFeriados; i++) {
+        if (feriados[i][0] == dia && feriados[i][1] == mes) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int ehFinalSemana(int dia, int mes, int ano) {
+    struct tm tm = {0};
+    tm.tm_mday = dia; 
+    tm.tm_mon = mes - 1;
+    tm.tm_year = ano - 1900; 
+
+    mktime(&tm);
+
+    if (tm.tm_wday == 0 || tm.tm_wday == 6) {
+        return 1;
+    }
+    return 0;
+}
+
+int diasParaViagem(int diaViagem, int mesViagem, int anoViagem) {
+    time_t agora;
+    time(&agora)
+        
+    struct tm tmViagem = {0};
+    tmViagem.tm_mday = diaViagem;
+    tmViagem.tm_mon = mesViagem - 1;
+    tmViagem.tm_year = anoViagem - 1900;
+
+    time_t tempoViagem = mktime(&tmViagem);
+    double diferenca = difftime(tempoViagem, agora);
+    int dias = (int)(diferenca / (60 * 60 * 24));
+
+    return dias > 0 ? dias : 0;
+}
+
+int diasRetorno(int diaIda, int mesIda, int anoIda, int diaVolta, int mesVolta, int anoVolta) {
+    struct tm tmIda = {0};
+    tmIda.tm_mday = diaIda;
+    tmIda.tm_mon = mesIda - 1;
+    tmIda.tm_year = anoIda - 1900;
+
+    struct tm tmVolta = {0};
+    tmVolta.tm_mday = diaVolta;
+    tmVolta.tm_mon = mesVolta - 1;
+    tmVolta.tm_year = anoVolta - 1900;
+
+    time_t tempoIda = mktime(&tmIda);
+    time_t tempoVolta = mktime(&tmVolta);
+
+    double diferenca = difftime(tempoVolta, tempoIda);
+    int dias = (int)(diferenca / (60 * 60 * 24));
+
+    return dias > 0 ? dias : 0;
+}
 
 float calcularPreco(Rota *rota, int diasParaViagem, int ehFeriado, int ehFinalSemana, int diasRetorno, int poltronasVagas) {
     float precoMilha;
@@ -102,8 +175,6 @@ float calcularPreco(Rota *rota, int diasParaViagem, int ehFeriado, int ehFinalSe
     else fatorProcura = 1.35;
 
     return rota->distanciaMilhas * precoMilha * fatorPeriodo * fatorDuffs * fatorRetorno * fatorProcura;
-}
-
 }
 
 void menuConfiguracoes() {
@@ -380,7 +451,7 @@ void menuVendas(){
             case 1:
                 printf("Você escolheu pagar com Cartão de Crédito.\n");
                 buscarCliente();
-                printf(calcularPreco(Rota *rota, int diasParaViagem, int ehFeriado, int ehFinalSemana, int diasRetorno, int poltronasVagas));
+                printf("Preço: %.2f\n", calcularPreco(Rota *rota, int diasParaViagem, int ehFeriado, int ehFinalSemana, int diasRetorno, int poltronasVagas));
                 break;
             case 2:
                 printf("Você escolheu pagar com Cartão de Débito.\n");
