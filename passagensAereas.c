@@ -468,7 +468,7 @@ void funcaoDinheiro(){
     fclose(file);
 }
 
-void menuVendas(){
+void escolherPagamento(){
     int opcao;
     Rota rota; 
     int diasParaViagem = 10,  ehFeriado = 0,  ehFinalSemana = 0, diasRetorno = 5, poltronasVagas = 50;
