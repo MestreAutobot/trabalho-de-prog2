@@ -361,6 +361,29 @@ void menuVendas(){
     }while(opcao!=4);
 }
 
+void gerarETicketTXT(Rota *rota, Cliente *cliente, int dia, int mes, int ano, char *portao) {
+    FILE *file = fopen("etickets.txt", "a");
+    if (file == NULL) {
+        printf("Erro ao gerar o e-ticket.\n");
+        return;
+    }
+
+    int numeroETicket = rand() % 100000 + 10000; // Número aleatório de 5 dígitos
+
+    fprintf(file, "----------------------------------------\n");
+    fprintf(file, "E-TICKET: %d\n", numeroETicket);
+    fprintf(file, "Passageiro: %s\n", cliente->nome);
+    fprintf(file, "Data do voo: %02d/%02d/%04d\n", dia, mes, ano);
+    fprintf(file, "Origem: %s  |  Destino: %s\n", rota->origem, rota->destino);
+    fprintf(file, "Horário: %02d:%02d\n", rota->horarioHoras, rota->horarioMinutos);
+    fprintf(file, "Código do voo: %s\n", rota->codigo);
+    fprintf(file, "Portão de embarque: %s\n", portao);
+    fprintf(file, "----------------------------------------\n\n");
+
+    fclose(file);
+    printf("\nE-ticket gerado com sucesso! (TXT)\n");
+}
+
 
     
 
