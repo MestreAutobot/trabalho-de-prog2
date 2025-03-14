@@ -40,7 +40,6 @@ typedef struct funcionario {
     char cargo[50];
 } Funcionario;
 
-
 void cadastrarAeroporto();
 void cadastrarRota();
 void cadastrarPassageiro();
@@ -82,8 +81,7 @@ int feriados[][2] = {
 };
 
 int ehFeriado(int dia, int mes) {
-    //int totalFeriados = sizeof(feriados) / sizeof(feriados[0]);
-    for (int i = 0; i < (sizeof(feriados) / sizeof(feriados[0])); i++) {//
+    for (int i = 0; i < (sizeof(feriados) / sizeof(feriados[0])); i++) {
         if (feriados[i][0] == dia && feriados[i][1] == mes) {
             return 1;
         }
@@ -98,12 +96,7 @@ int ehFinalSemana(int dia, int mes, int ano) {
     tm.tm_year = ano - 1900; 
 
     mktime(&tm);
-    return (tm.tm_wday == 0 || tm.tm_wday == 6); // ADIÇÃO
-
-    //if (tm.tm_wday == 0 || tm.tm_wday == 6) {
-        //return 1;
-    //}
-    //return 0;
+    return (tm.tm_wday == 0 || tm.tm_wday == 6);
 }
 
 int diasParaViagem(int diaViagem, int mesViagem, int anoViagem) {
@@ -117,9 +110,7 @@ int diasParaViagem(int diaViagem, int mesViagem, int anoViagem) {
 
     time_t tempoViagem = mktime(&tmViagem);
     double diferenca = difftime(tempoViagem, agora);
-    return (int)(diferenca / (60 * 60 * 24));//
-
-    //return dias > 0 ? dias : 0;
+    return (int)(diferenca / (60 * 60 * 24));
 }
 
 int diasRetorno(int diaIda, int mesIda, int anoIda, int diaVolta, int mesVolta, int anoVolta) {
@@ -138,8 +129,6 @@ int diasRetorno(int diaIda, int mesIda, int anoIda, int diaVolta, int mesVolta, 
 
     double diferenca = difftime(tempoVolta, tempoIda);
     return (int)(diferenca / (60 * 60 * 24));
-
-    //return dias > 0 ? dias : 0;
 }
 
 float calcularPreco(Rota *rota, int diasParaViagem, int ehFeriado, int ehFinalSemana, int diasRetorno, int poltronasVagas) {
@@ -414,8 +403,8 @@ void buscarCliente(){
             printf("Por favor, insira seu CPF:\n");
             scanf("%s", cpf);
         
-            while (fread(&cliente, sizeof(Cliente), 1, file){
-                if(strcmp(cpf, cliente.cpf)==0){
+            while (fread(&cliente, sizeof(Cliente), 1, file)){
+                if(strcmp(cpf, cliente.CPF)==0){
                     printf("Cliente já cadastrado. Cliente: %s\n", cliente.nome);
                     encontrado = 1;
                     break;
@@ -472,7 +461,7 @@ void funcaoDinheiro(){
         }
         if(encontrado==0){
             printf("Funcionário não cadastrado. Por favor, realize o cadastro:\n");
-            cadastrarPassageiro();
+            cadastrarFuncionario();
             break;
         }
     }while(encontrado==0);
@@ -481,7 +470,8 @@ void funcaoDinheiro(){
 
 void menuVendas(){
     int opcao;
-    
+    Rota rota; 
+    int diasParaViagem = 10,  ehFeriado = 0,  ehFinalSemana = 0, diasRetorno = 5, poltronasVagas = 50;
     do{
         printf("\nForma de pagamento\n");
         printf("[1] Cartão de Crédito\n");
@@ -495,12 +485,12 @@ void menuVendas(){
             case 1:
                 printf("Você escolheu pagar com Cartão de Crédito.\n");
                 buscarCliente();
-                printf("Preço: %.2f\n", calcularPreco(Rota *rota, int diasParaViagem, int ehFeriado, int ehFinalSemana, int diasRetorno, int poltronasVagas));
+                printf("Preço: %.2f\n", calcularPreco(&rota, diasParaViagem, ehFeriado, ehFinalSemana, diasRetorno, poltronasVagas));
                 break;
             case 2:
                 printf("Você escolheu pagar com Cartão de Débito.\n");
                 buscarCliente();
-                printf("Preço: %.2f\n", calcularPreco(Rota *rota, int diasParaViagem, int ehFeriado, int ehFinalSemana, int diasRetorno, int poltronasVagas));
+                printf("Preço: %.2f\n", calcularPreco(&rota, diasParaViagem, ehFeriado, ehFinalSemana, diasRetorno, poltronasVagas));
                 break;
             case 3:
                 printf("Você escolheu pagar em Dinheiro.\n");
@@ -537,10 +527,6 @@ void gerarETicketTXT(Rota *rota, Cliente *cliente, int dia, int mes, int ano, ch
     fclose(file);
     printf("\nE-ticket gerado com sucesso! (TXT)\n");
 }
-
-
-    
-
 
 int main() {
     int opcao;
