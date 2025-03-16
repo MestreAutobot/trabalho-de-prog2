@@ -156,6 +156,7 @@ void menuVendas() {
     Cliente cliente;
     int dia, mes, ano;
     char portao[10];
+    int opcaoPagamento;
 
     // Etapa 1: Selecionar origem e destino
     selecionarOrigemDestino(origem, destino);
@@ -206,7 +207,6 @@ void menuVendas() {
     printf("[2] Cartão de Débito\n");
     printf("[3] Dinheiro\n");
     printf("Escolha uma opção: ");
-    int opcaoPagamento;
     scanf("%d", &opcaoPagamento);
     while (getchar() != '\n'); // Limpa o buffer de entrada após o scanf
 
